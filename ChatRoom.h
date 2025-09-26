@@ -43,8 +43,6 @@ class ChatRoom {
         void addObserver(NotificationObserver* observer);
         void removeObserver(NotificationObserver* observer);
         void notifyObservers(const std::string& event, const std::string& data);
-
-        // Command pattern methods
         void addCommand(Command* command);
         void executeAll();
         
