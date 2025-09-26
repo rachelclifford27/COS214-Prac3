@@ -1,6 +1,6 @@
 #include "LogMessageCommand.h"
 #include "ChatRoom.h"
-#include "User.h"
+#include "Users.h"
 #include <iostream>
 
 // LogMessageCommand implementation
