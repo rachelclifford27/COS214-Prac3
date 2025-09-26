@@ -1,6 +1,6 @@
 #include "Command.h"
 #include "ChatRoom.h"
-#include "User.h"
+#include "Users.h"
 #include "NotificationObserver.h"
 
 ChatRoom::ChatRoom() : chatHistory("") {

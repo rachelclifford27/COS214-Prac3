@@ -1,6 +1,6 @@
 #include "SendMessageCommand.h"
 #include "ChatRoom.h"
-#include "User.h"
+#include "Users.h"
 
 // SendMessageCommand implementation
 SendMessageCommand::SendMessageCommand(ChatRoom* room, User* user, const std::string& msg)
