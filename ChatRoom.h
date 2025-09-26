@@ -12,6 +12,7 @@ class User;
 class NotificationObserver;
 class UserIterator;
 class MessageIterator;
+class Command;
 
 class ChatRoom {
     private:
@@ -42,6 +43,8 @@ class ChatRoom {
         void addObserver(NotificationObserver* observer);
         void removeObserver(NotificationObserver* observer);
         void notifyObservers(const std::string& event, const std::string& data);
+        void addCommand(Command* command);
+        void executeAll();
         
         //Add to UML
         // Getter methods
