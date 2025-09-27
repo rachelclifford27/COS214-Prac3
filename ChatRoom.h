@@ -6,6 +6,7 @@
 #include <map>
 #include <list>
 #include <iostream>
+#include "ChatAggregate.h"
 
 // Forward declarations
 class User;
@@ -14,7 +15,7 @@ class UserIterator;
 class MessageIterator;
 class Command;
 
-class ChatRoom {
+class ChatRoom : public ChatAggregate {
     private:
         std::vector<User*> users;
         std::vector<std::string> chatHistory;
@@ -57,7 +58,7 @@ class ChatRoom {
         const std::vector<NotificationObserver*>& getObservers() const;
         
         std::string getName() const;
-        
+
         // Utility methods
         int getUserCount() const;
         bool hasUser(User* user) const;

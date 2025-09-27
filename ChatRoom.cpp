@@ -1,4 +1,5 @@
 #include "ChatRoom.h"
+#include "ChatAggregate.h"
 #include "Users.h"
 #include "NotificationObserver.h"
 #include "Command.h"
