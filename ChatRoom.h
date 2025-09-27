@@ -16,7 +16,7 @@ class MessageIterator;
 class Command;
 
 class ChatRoom : public ChatAggregate {
-    private:
+  protected:
         std::vector<User*> users;
         std::vector<std::string> chatHistory;
         std::vector<NotificationObserver*> observers;
