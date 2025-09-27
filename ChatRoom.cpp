@@ -2,6 +2,9 @@
 #include "Users.h"
 #include "NotificationObserver.h"
 #include "Command.h"
+#include "ChatIterator.h"      
+#include "UserIterator.h"  
+#include "MessageIterator.h"
 
 // Constructor
 ChatRoom::ChatRoom() : chatHistory(), roomName("DefaultRoom") {
@@ -83,22 +86,12 @@ void ChatRoom::saveMessage(const std::string& message, User* fromUser) {
     }
 }
 
-// Iterator methods - Basic implementation returning first user
-// Note: These would typically return proper iterators, but based on UML showing User* return type
 UserIterator* ChatRoom::createUserIterator() {
-    if (!users.empty()) {
-        return userIterator[0];
-    }
-    return nullptr;
+    return new UserIterator(users);
 }
 
 MessageIterator* ChatRoom::createMessageIterator() {
-    // This is a simplified implementation
-    // In a full implementation, this might return an iterator over messages
-    if (!users.empty()) {
-        return messageIterator[0];
-    }
-    return nullptr;
+    return new MessageIterator(chatHistory);
 }
 
 // Observer pattern methods
