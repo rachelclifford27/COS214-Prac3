@@ -19,6 +19,8 @@ class ChatRoom {
         std::vector<User*> users;
         std::vector<std::string> chatHistory;
         std::vector<NotificationObserver*> observers;
+        std::vector<Command*> commandQueue;
+        std::string roomName;
     public:
         // Constructor and Destructor
         ChatRoom();
@@ -34,6 +36,8 @@ class ChatRoom {
         // Message handling methods
         void sendMessage(const std::string& message, User* fromUser);
         void saveMessage(const std::string& message, User* fromUser);
+        void receiveMessage(const std::string& message, User* fromUser);
+
         
         // Iterator creation methods
         UserIterator* createUserIterator();
@@ -51,6 +55,8 @@ class ChatRoom {
         const std::vector<User*>& getUsers() const;
         const std::vector<std::string>& getChatHistory() const;
         const std::vector<NotificationObserver*>& getObservers() const;
+        
+        std::string getName() const;
         
         // Utility methods
         int getUserCount() const;
