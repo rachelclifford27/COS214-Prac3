@@ -56,4 +56,4 @@ public:
     std::string getName() const;
 };
 
-#endif // CTRLCAT_H
+#endif

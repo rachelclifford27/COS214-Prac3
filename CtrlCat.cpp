@@ -88,4 +88,4 @@ void CtrlCat::removeUser(User* user) {
  */
 std::string CtrlCat::getName() const {
     return ROOM_NAME;
-}
+}//
