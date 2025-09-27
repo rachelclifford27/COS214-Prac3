@@ -79,7 +79,7 @@ void ChatRoom::saveMessage(const std::string& message, User* fromUser) {
     if (fromUser != nullptr && !message.empty()) {
         // Format: [Username]: Message\n
         std::string formattedMessage = "[" + fromUser->getName() + "]: " + message + "\n";
-        chatHistory += formattedMessage;
+        chatHistory.push_back(formattedMessage);
     }
 }
 
