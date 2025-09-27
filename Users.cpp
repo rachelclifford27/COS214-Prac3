@@ -99,6 +99,29 @@ void User::receive(const std::string& message, User* fromUser, ChatRoom* room) {
 }
 
 /**
+ * @brief Receive a message (simplified version called by ChatRoom)
+ * @param message The message content
+ * @param fromUser The user who sent the message
+ * 
+ * This method is called by ChatRoom::sendMessage()
+ */
+void User::receiveMessage(const std::string& message, User* fromUser) {
+    if (fromUser == nullptr) {
+        std::cerr << "Error: Invalid sender for receive message" << std::endl;
+        return;
+    }
+    
+    if (fromUser == this) {
+        return; // Don't receive own messages
+    }
+    
+    if (isOnline) {
+        std::cout << "[" << name << "] Received from " << fromUser->getName() 
+                  << ": " << message << std::endl;
+    }
+}
+
+/**
  * @brief Add a command to the command queue
  * @param command The command to add
  */
