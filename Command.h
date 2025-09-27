@@ -6,6 +6,14 @@
 class ChatRoom;
 class User;
 
+/**
+ * @brief Abstract base Command class for the Command pattern
+ * 
+ * This class encapsulates a request as an object, allowing for
+ * parameterization of clients with different requests, queuing
+ * of requests, and logging of requests.
+ */
+
 class Command {
     protected:
         ChatRoom* room;
@@ -13,13 +21,28 @@ class Command {
         std::string message;
 
     public:
-        // Constructor
+
+        /**
+         * @brief Constructor for Command
+         * @param room Pointer to the ChatRoom where the command will be executed
+         * @param user Pointer to the User who initiated the command
+         * @param msg The message content
+         */
+
         Command(ChatRoom* room, User* user, const std::string& msg);
         
-        // Virtual destructor
+        /**
+         * @brief Virtual destructor for proper inheritance
+         */
+
         virtual ~Command();
         
-        // Pure virtual execute method
+        /**
+         * @brief Pure virtual execute method
+         * 
+         * This method must be implemented by all concrete command classes
+         * to define the specific action to be performed.
+         */
         virtual void execute() = 0;
 };
 

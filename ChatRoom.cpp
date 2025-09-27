@@ -1,10 +1,14 @@
 #include "ChatRoom.h"
+#include "ChatAggregate.h"
 #include "Users.h"
 #include "NotificationObserver.h"
 #include "Command.h"
+#include "ChatIterator.h"      
+#include "UserIterator.h"  
+#include "MessageIterator.h"
 
 // Constructor
-ChatRoom::ChatRoom() : chatHistory("") {
+ChatRoom::ChatRoom() : chatHistory(), roomName("DefaultRoom") {
     // Initialize empty vectors and string
 }
 
@@ -39,12 +43,14 @@ void ChatRoom::registerUser(User* user) {
 
 void ChatRoom::removeUser(User* user) {
     if (user != nullptr) {
-        auto it = std::find(users.begin(), users.end(), user);
-        if (it != users.end()) {
-            users.erase(it);
-            
-            // Notify observers about user leaving
-            notifyObservers("USER_LEFT", "User left the chat room");
+        for (auto it = users.begin(); it != users.end(); ++it) {
+            if (*it == user) {
+                users.erase(it);
+                
+                // Notify observers about user leaving
+                notifyObservers("USER_LEFT", "User left the chat room");
+                break;
+            }
         }
     }
 }
@@ -56,7 +62,7 @@ void ChatRoom::sendMessage(const std::string& message, User* fromUser) {
         saveMessage(message, fromUser);
         
         // Send message to all other users in the room
-        for (auto* user : users) {
+       for (auto* user : users) {
             if (user != fromUser) {
                 user->receiveMessage(message, fromUser);
             }
@@ -77,26 +83,16 @@ void ChatRoom::saveMessage(const std::string& message, User* fromUser) {
     if (fromUser != nullptr && !message.empty()) {
         // Format: [Username]: Message\n
         std::string formattedMessage = "[" + fromUser->getName() + "]: " + message + "\n";
-        chatHistory += formattedMessage;
+        chatHistory.push_back(formattedMessage);
     }
 }
 
-// Iterator methods - Basic implementation returning first user
-// Note: These would typically return proper iterators, but based on UML showing User* return type
-User* ChatRoom::createUserIterator() {
-    if (!users.empty()) {
-        return users[0];
-    }
-    return nullptr;
+UserIterator* ChatRoom::createUserIterator() {
+    return new UserIterator(users);
 }
 
-User* ChatRoom::createMessageIterator() {
-    // This is a simplified implementation
-    // In a full implementation, this might return an iterator over messages
-    if (!users.empty()) {
-        return users[0];
-    }
-    return nullptr;
+MessageIterator* ChatRoom::createMessageIterator() {
+    return new MessageIterator(chatHistory);
 }
 
 // Observer pattern methods
@@ -108,9 +104,11 @@ void ChatRoom::addObserver(NotificationObserver* observer) {
 
 void ChatRoom::removeObserver(NotificationObserver* observer) {
     if (observer != nullptr) {
-        auto it = std::find(observers.begin(), observers.end(), observer);
-        if (it != observers.end()) {
-            observers.erase(it);
+        for (auto it = observers.begin(); it != observers.end(); ++it) {
+            if (*it == observer) {
+                observers.erase(it);
+                break;
+            }
         }
     }
 }
@@ -145,25 +143,16 @@ void ChatRoom::executeAll() {
     commandQueue.clear();
 }
 
-// State pattern methods
-void ChatRoom::updateEvent(const std::string& event, const std::string& data) {
-    // Handle state changes based on events
-    if (event == "USER_JOINED" || event == "USER_LEFT" || event == "MESSAGE_SENT") {
-        notifyObservers(event, data);
-    }
-}
-
-void ChatRoom::setOnlineStatus(bool status) {
-    // Set the online status of the chat room
-    std::string statusMsg = status ? "Chat room is online" : "Chat room is offline";
-    notifyObservers("STATUS_CHANGED", statusMsg);
-}
 
 // Getters
 const std::vector<User*>& ChatRoom::getUsers() const {
     return users;
 }
 
-const std::string& ChatRoom::getChatHistory() const {
+const std::vector<std::string>& ChatRoom::getChatHistory() const {
     return chatHistory;
+}
+
+std::string ChatRoom::getName() const {
+    return roomName;
 }

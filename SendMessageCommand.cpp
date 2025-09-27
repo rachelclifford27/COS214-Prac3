@@ -12,9 +12,9 @@ SendMessageCommand::~SendMessageCommand() {
 }
 
 void SendMessageCommand::execute() {
-    if (chatRoom != nullptr && fromUser != nullptr && !message.empty()) {
+    if (room != nullptr && fromUser != nullptr && !message.empty()) {
         // Use ChatRoom's sendMessage method to deliver message to all users
         // This will distribute the message to all users in the chat room
-        chatRoom->sendMessage(message, fromUser);
+        room->sendMessage(message, fromUser);
     }
 }

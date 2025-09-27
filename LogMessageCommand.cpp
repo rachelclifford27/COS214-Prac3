@@ -13,7 +13,7 @@ LogMessageCommand::~LogMessageCommand() {
 }
 
 void LogMessageCommand::execute() {
-    if (chatRoom != nullptr && fromUser != nullptr && !message.empty()) {
+    if (room != nullptr && fromUser != nullptr && !message.empty()) {
         // Log the message activity to console for audit/debugging purposes
         // In a real system, this could log to a file, database, or external logging service
         std::cout << "[LOG] Timestamp: NOW" 

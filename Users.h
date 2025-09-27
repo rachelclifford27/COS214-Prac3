@@ -1,5 +1,5 @@
-#ifndef USER_H
-#define USER_H
+#ifndef USERS_H
+#define USERS_H
 
 #include <string>
 #include <vector>
@@ -64,6 +64,9 @@ public:
      * This method is called by the ChatRoom mediator when a message is delivered
      */
     virtual void receive(const std::string& message, User* fromUser, ChatRoom* room);
+
+    void receiveMessage(const std::string& message, User* fromUser); // Called by ChatRoom
+
     
     // Command Pattern Methods (User as Invoker)
     /**
