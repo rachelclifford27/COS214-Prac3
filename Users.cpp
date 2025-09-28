@@ -112,7 +112,7 @@ void User::receiveMessage(const std::string& message, User* fromUser) {
     }
     
     if (fromUser == this) {
-        return; // Don't receive own messages
+        return;
     }
     
     if (isOnline) {
@@ -161,7 +161,7 @@ void User::update(const std::string& event, const std::string& data, ChatRoom* r
     }
     
     if (event == "USER_JOINED") {
-        if (data != name) { // Don't notify about own join
+        if (data != name) {
             std::cout << "[NOTIFICATION] " << name << ": " << data 
                       << " joined " << room->getName() << std::endl;
         }

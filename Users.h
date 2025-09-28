@@ -25,7 +25,7 @@ class Command;
  * - Command Pattern: Acts as an invoker that creates and executes commands
  * - Observer Pattern: Acts as a concrete observer that receives notifications
  */
-class User {
+class User : public NotificationObserver {
 private:
     std::string name;                           
     std::vector<ChatRoom*> chatRooms;          
@@ -65,7 +65,7 @@ public:
      */
     virtual void receive(const std::string& message, User* fromUser, ChatRoom* room);
 
-    void receiveMessage(const std::string& message, User* fromUser); // Called by ChatRoom
+    void receiveMessage(const std::string& message, User* fromUser);
 
     
     // Command Pattern Methods (User as Invoker)

@@ -15,6 +15,7 @@
 #include <list>
 #include <iostream>
 #include "ChatAggregate.h"
+#include "NotificationSubject.h"
 
 // Forward declarations
 class User;
@@ -36,11 +37,11 @@ class Command;
  * to provide a complete chat room experience.
  */
 
-class ChatRoom : public ChatAggregate {
+class ChatRoom : public ChatAggregate, public NotificationSubject {
   protected:
         std::vector<User*> users;
         std::vector<std::string> chatHistory;
-        std::vector<NotificationObserver*> observers;
+        //std::vector<NotificationObserver*> observers;
         std::vector<Command*> commandQueue;
         std::string roomName;
     public:
@@ -83,6 +84,14 @@ class ChatRoom : public ChatAggregate {
 
         void removeUser(User* user);
 
+        /**
+        * @brief Get the name of the chat room (pure virtual implementation)
+        * 
+        * @return std::string The name of the chat room
+        */
+
+        virtual std::string getName() const = 0;
+
         //add to UML
         /**
          * @brief Get a user by name
@@ -90,6 +99,7 @@ class ChatRoom : public ChatAggregate {
          * @param name The name of the user to find
          * @return User* Pointer to the user if found, nullptr otherwise
          */
+        
         User* getUser(const std::string& name);
         
         // Message handling methods
@@ -129,9 +139,6 @@ class ChatRoom : public ChatAggregate {
 
         void receiveMessage(const std::string& message, User* fromUser);
 
-        
-        // Iterator creation methods
-
         /**
          * @brief Create an iterator for users
          * 
@@ -151,24 +158,6 @@ class ChatRoom : public ChatAggregate {
          * @return MessageIterator* Pointer to a new MessageIterator instance
          */
         MessageIterator* createMessageIterator();
-        
-        /**
-         * @brief Add an observer to the chat room
-         * 
-         * Registers an observer to receive notifications about chat room events.
-         * 
-         * @param observer Pointer to the observer to add (must not be nullptr)
-         */
-        void addObserver(NotificationObserver* observer);
-        
-        /**
-         * @brief Remove an observer from the chat room
-         * 
-         * Unregisters an observer from receiving notifications.
-         * 
-         * @param observer Pointer to the observer to remove (must not be nullptr)
-         */
-        void removeObserver(NotificationObserver* observer);
         
         /**
          * @brief Notify all observers about an event
