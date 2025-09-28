@@ -6,8 +6,8 @@
 /**
  * @file CtrlCat.cpp
  * @brief Implementation of CtrlCat concrete mediator
- * @author [Your Name]
- * @date [Current Date]
+ * @author Sofia Finlayson
+ * @date 10/09/2025
  */
 
 // Static member definition

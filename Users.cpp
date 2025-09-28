@@ -9,8 +9,8 @@
 /**
  * @file User.cpp
  * @brief Implementation of the User class
- * @author [Your Name]
- * @date [Current Date]
+ * @author Sofia Finlayson
+ * @date 09/09/2025
  */
 
 /**

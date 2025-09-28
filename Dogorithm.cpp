@@ -6,8 +6,8 @@
 /**
  * @file Dogorithm.cpp
  * @brief Implementation of Dogorithm concrete mediator
- * @author [Your Name]
- * @date [Current Date]
+ * @author Sofia Finlayson
+ * @date 10/09/2025
  */
 
 // Static member definition

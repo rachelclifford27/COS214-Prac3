@@ -21,10 +21,6 @@ void LogMessageCommand::execute() {
                   << " | Room: ChatRoom"
                   << " | Message: \"" << message << "\"" << std::endl;
         
-        // Additional logging could include:
-        // - Message length
-        // - Number of users in room
-        // - Message type/category
-        // - Security/moderation flags
+        
     }
 }

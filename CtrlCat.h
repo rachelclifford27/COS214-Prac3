@@ -6,8 +6,8 @@
 /**
  * @file CtrlCat.h
  * @brief CtrlCat concrete mediator class - a cat-themed chat room
- * @author [Your Name]
- * @date [Current Date]
+ * @author Sofia Finlayson
+ * @date 10/09/2025
  */
 
 /**

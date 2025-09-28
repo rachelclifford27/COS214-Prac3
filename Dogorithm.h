@@ -6,8 +6,8 @@
 /**
  * @file Dogorithm.h
  * @brief Dogorithm concrete mediator class - a dog-themed chat room
- * @author [Your Name]
- * @date [Current Date]
+ * @author Sofia Finlayson
+ * @date 10/09/2025
  */
 
 /**

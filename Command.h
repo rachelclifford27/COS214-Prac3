@@ -1,3 +1,10 @@
+/**
+ * @file Command.h
+ * @brief Base Command class for implementing Command pattern
+ * @author Rachel Clifford
+ * @date 13/09/2025
+ */
+
 #ifndef COMMAND_H
 #define COMMAND_H
 

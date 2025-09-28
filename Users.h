@@ -12,8 +12,8 @@ class Command;
 /**
  * @file User.h
  * @brief User class that participates in Mediator, Command, and Observer patterns
- * @author [Your Name]
- * @date [Current Date]
+ * @author Sofia Finlayson
+ * @date 09/09/2025
  */
 
 /**
