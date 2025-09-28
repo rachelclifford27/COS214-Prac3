@@ -84,13 +84,13 @@ class ChatRoom : public ChatAggregate, public NotificationSubject {
 
         void removeUser(User* user);
 
-        /**
-        * @brief Get the name of the chat room (pure virtual implementation)
-        * 
-        * @return std::string The name of the chat room
-        */
+        // /**
+        // * @brief Get the name of the chat room (pure virtual implementation)
+        // * 
+        // * @return std::string The name of the chat room
+        // */
 
-        virtual std::string getName() const = 0;
+        // virtual std::string getName() const = 0;
 
         //add to UML
         /**

@@ -44,4 +44,7 @@ testing: $(OBJS)
 clean:
 	rm -f $(OBJS) $(TARGETS)
 
+run: testing
+	./testing
+
 .PHONY: all clean
