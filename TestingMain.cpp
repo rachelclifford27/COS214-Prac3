@@ -108,6 +108,21 @@ int main() {
         for (size_t i = 0; i < sofia->getChatRooms().size(); i++) {
             std::cout << "  - " << sofia->getChatRooms()[i]->getName() << std::endl;
         }
+
+        User* foundUser = ctrlCat->getUser("Rachel");
+        std::cout << "User: " << sofia->getName() << std::endl;
+
+        const std::vector<std::string>& history = ctrlCat->getChatHistory();
+        std::cout << "Chat history: " << history.size() << std::endl;
+
+        std::cout << "\nTesting clearChatHistory():" << std::endl;
+        ctrlCat->clearChatHistory();
+        std::cout << "Chat history size after clear: " << ctrlCat->getChatHistory().size() << std::endl;
+
+        std::cout << "\nTesting getName() for both mediators:" << std::endl;
+        std::cout << "Room 1 name: " << ctrlCat->getName() << std::endl;
+        std::cout << "Room 2 name: " << dogorithm->getName() << std::endl;
+        
         
         std::cout << "\nMediator pattern test completed!\n" << std::endl;
 
@@ -124,25 +139,52 @@ int main() {
         std::cout << "Dogorithm observers count: " << dogorithm->getObservers().size() << std::endl;
         
         std::cout << "\nTesting observer notifications for status changes:" << std::endl;
-        std::cout << "Bob going offline..." << std::endl;
+        std::cout << "Rachel going offline..." << std::endl;
         rachel->setOnlineStatus(false);
         
-        std::cout << "\nBob coming back online..." << std::endl;
+        std::cout << "\nRachel coming back online..." << std::endl;
         rachel->setOnlineStatus(true);
         
         std::cout << "\nTesting observer notifications when user leaves:" << std::endl;
-        std::cout << "Charlie leaving Dogorithm..." << std::endl;
+        std::cout << "Bobby leaving Dogorithm..." << std::endl;
         bobby->leaveChatRoom(dogorithm);
         std::cout << "Dogorithm observers count: " << dogorithm->getObservers().size() << std::endl;
         
         std::cout << "\nTesting offline user does not receive notifications:" << std::endl;
         rachel->setOnlineStatus(false);
-        std::cout << "Charlie joining CtrlCat (Bob is offline, should not be notified)..." << std::endl;
+        std::cout << "Bobby joining CtrlCat (Bob is offline, should not be notified)..." << std::endl;
         bobby->joinChatRoom(ctrlCat);
         
         std::cout << "\nFinal observer counts:" << std::endl;
         std::cout << "CtrlCat observers: " << ctrlCat->getObservers().size() << std::endl;
         std::cout << "Dogorithm observers: " << dogorithm->getObservers().size() << std::endl;
+
+        std::cout << "\nTesting direct addObserver():" << std::endl;
+        User* testUser = new User("TestObserver");
+        testUser->setOnlineStatus(true);
+        std::cout << "Dogorithm observers before: " << dogorithm->getObservers().size() << std::endl;
+        dogorithm->addObserver(testUser);
+        std::cout << "Dogorithm observers after addObserver: " << dogorithm->getObservers().size() << std::endl;
+        
+        std::cout << "\nTesting direct removeObserver():" << std::endl;
+        dogorithm->removeObserver(testUser);
+        std::cout << "Dogorithm observers after removeObserver: " << dogorithm->getObservers().size() << std::endl;
+        
+        std::cout << "\nTesting notifyObservers with different event types:" << std::endl;
+        dogorithm->addObserver(sofia);
+        dogorithm->notifyObservers("USER_JOINED", "TestUser");
+        dogorithm->notifyObservers("USER_LEFT", "TestUser");
+        dogorithm->notifyObservers("USER_ONLINE", "TestUser");
+        dogorithm->notifyObservers("USER_OFFLINE", "TestUser");
+        dogorithm->notifyObservers("MESSAGE_SENT", "Test message");
+
+        std::cout << "\nTesting getObservers() return value:" << std::endl;
+        const std::vector<NotificationObserver*>& observers = dogorithm->getObservers();
+        std::cout << "Retrieved observers list size: " << observers.size() << std::endl;
+        
+        std::cout << "\nVerifying User update() receives all event types:" << std::endl;
+        std::cout << "(Notifications should appear above for various event types)" << std::endl;
+        
         
         std::cout << "\nObserver completed\n" << std::endl;
         
