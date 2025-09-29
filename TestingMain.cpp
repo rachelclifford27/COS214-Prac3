@@ -13,6 +13,8 @@
 #include "ChatAggregate.h"
 #include "SendMessageCommand.h"
 #include "LogMessageCommand.h"
+#include "NotificationObserver.h"
+#include "NotificationSubject.h"
 
 /**
  * @file TestingMain.cpp
@@ -110,8 +112,40 @@ int main() {
         std::cout << "\nMediator pattern test completed!\n" << std::endl;
 
         //observer
-
-
+        std::cout << "Testing Observer Pattern" << std::endl;
+        
+        std::cout << "\nTesting observer registration (automatic when joining rooms):" << std::endl;
+        std::cout << "CtrlCat observers count: " << ctrlCat->getObservers().size() << std::endl;
+        std::cout << "Dogorithm observers count: " << dogorithm->getObservers().size() << std::endl;
+        
+        std::cout << "\nTesting observer notifications when user joins:" << std::endl;
+        std::cout << "Charlie re-joining Dogorithm..." << std::endl;
+        bobby->joinChatRoom(dogorithm);
+        std::cout << "Dogorithm observers count: " << dogorithm->getObservers().size() << std::endl;
+        
+        std::cout << "\nTesting observer notifications for status changes:" << std::endl;
+        std::cout << "Bob going offline..." << std::endl;
+        rachel->setOnlineStatus(false);
+        
+        std::cout << "\nBob coming back online..." << std::endl;
+        rachel->setOnlineStatus(true);
+        
+        std::cout << "\nTesting observer notifications when user leaves:" << std::endl;
+        std::cout << "Charlie leaving Dogorithm..." << std::endl;
+        bobby->leaveChatRoom(dogorithm);
+        std::cout << "Dogorithm observers count: " << dogorithm->getObservers().size() << std::endl;
+        
+        std::cout << "\nTesting offline user does not receive notifications:" << std::endl;
+        rachel->setOnlineStatus(false);
+        std::cout << "Charlie joining CtrlCat (Bob is offline, should not be notified)..." << std::endl;
+        bobby->joinChatRoom(ctrlCat);
+        
+        std::cout << "\nFinal observer counts:" << std::endl;
+        std::cout << "CtrlCat observers: " << ctrlCat->getObservers().size() << std::endl;
+        std::cout << "Dogorithm observers: " << dogorithm->getObservers().size() << std::endl;
+        
+        std::cout << "\nObserver completed\n" << std::endl;
+        
         //Command
          std::cout << "\nCOMMAND PATTERN COMPREHENSIVE TEST SUITE" << std::endl;
 
