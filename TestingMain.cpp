@@ -123,6 +123,13 @@ int main() {
         std::cout << "Room 1 name: " << ctrlCat->getName() << std::endl;
         std::cout << "Room 2 name: " << dogorithm->getName() << std::endl;
         
+        std::cout << "\nTesting clearChatHistory():" << std::endl;
+        ctrlCat->clearChatHistory();
+
+        std::cout << "Room 1 name: " << ctrlCat->getName() << std::endl;
+        std::cout << "Room 2 name: " << dogorithm->getName() << std::endl;
+
+
         
         std::cout << "\nMediator pattern test completed!\n" << std::endl;
 
@@ -185,6 +192,38 @@ int main() {
         std::cout << "\nVerifying User update() receives all event types:" << std::endl;
         std::cout << "(Notifications should appear above for various event types)" << std::endl;
         
+        testUser->setOnlineStatus(true);
+        std::cout << "Dogorithm observers before: " << dogorithm->getObservers().size() << std::endl;
+        dogorithm->addObserver(testUser);
+        std::cout << "Dogorithm observers after addObserver: " << dogorithm->getObservers().size() << std::endl;
+        
+        dogorithm->removeObserver(testUser);
+        std::cout << "Dogorithm observers after removeObserver: " << dogorithm->getObservers().size() << std::endl;
+        
+        std::cout << "\nTesting receiveMessage():" << std::endl;
+        sofia->receiveMessage("Direct message test", rachel);
+
+        std::cout << "\nTesting receive() with room:" << std::endl;
+        sofia->receive("Test message with room", rachel, ctrlCat);
+        
+        User* outsider = new User("Outsider");
+        outsider->setOnlineStatus(true);
+        outsider->sendMessage("Fail", ctrlCat);
+
+        std::cout << "\nTesting ChatRoom receiveMessage():" << std::endl;
+        ctrlCat->receiveMessage("Test receive message", sofia);
+        
+        std::cout << "\nTesting getUsers():" << std::endl;
+        const std::vector<User*>& usersInCtrlCat = ctrlCat->getUsers();
+        std::cout << "Retrieved users list size: " << usersInCtrlCat.size() << std::endl;
+        for (size_t i = 0; i < usersInCtrlCat.size(); i++) {
+            std::cout << "  User " << i << ": " << usersInCtrlCat[i]->getName() << std::endl;
+        }
+
+        std::cout << "\nTesting leaving room user is not in:" << std::endl;
+        User* newUser = new User("NewUser");
+        newUser->setOnlineStatus(true);
+        newUser->leaveChatRoom(dogorithm);
         
         std::cout << "\nObserver completed\n" << std::endl;
         
@@ -1032,10 +1071,6 @@ int main() {
 
         
         }
-
-        
-
-        
 
     //Nested Iteration
         std::cout << "\n--- Nested Iteration (Users and Messages) ---" << std::endl;
