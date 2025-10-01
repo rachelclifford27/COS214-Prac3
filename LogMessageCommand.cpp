@@ -22,5 +22,6 @@ void LogMessageCommand::execute() {
                   << " | Message: \"" << message << "\"" << std::endl;
         
         
+                  
     }
 }
