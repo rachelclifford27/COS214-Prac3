@@ -1,3 +1,4 @@
+
 #include "LogMessageCommand.h"
 #include "ChatRoom.h"
 #include "Users.h"
@@ -25,3 +26,4 @@ void LogMessageCommand::execute() {
                   
     }
 }
+

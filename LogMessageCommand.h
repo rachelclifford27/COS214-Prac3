@@ -1,3 +1,4 @@
+
 /**
  * @file LogMessageCommand.h
  * @brief Command implementation for logging message activities
